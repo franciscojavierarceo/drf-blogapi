@@ -31,6 +31,7 @@ DEBUG = int(os.environ.get('DEBUG', default=0))
 ALLOWED_HOSTS = [
      'localhost', 
      '127.0.0.1',
+     '*',
 ]
 
 # Application definition
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 
     # 3rd-party apps
     'rest_framework',
+    'corsheaders',
     'rest_framework.authtoken',
     'allauth',
     'allauth.account',
@@ -58,6 +60,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -151,3 +154,10 @@ STATIC_URL = '/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
+
+CORS_ORIGIN_WHITELIST = (
+'localhost:3000',
+'localhost:19000',
+'localhost:19001',
+'localhost:19002',
+)
