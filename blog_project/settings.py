@@ -98,8 +98,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_NAME'),
-        'PASSWORD': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': os.environ.get('DB_HOST'),
         'PORT': int(os.environ.get('DB_PORT')),
     }
@@ -160,4 +160,5 @@ CORS_ORIGIN_WHITELIST = (
 'localhost:19000',
 'localhost:19001',
 'localhost:19002',
+#'*',
 )
