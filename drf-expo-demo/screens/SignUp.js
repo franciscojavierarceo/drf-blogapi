@@ -11,7 +11,7 @@ export default class SignUp extends React.Component {
         console.log(this.state)
         function allauthRegister(d) {
             try { 
-                const myResponse = fetch("http://localhost:8000/api/v1/rest-auth/login/", {
+                const myResponse = fetch("http://localhost:8000/api/v1/rest-auth/registration/", {
                     method: 'POST',
                     headers: {
                         Accept: 'application/json',

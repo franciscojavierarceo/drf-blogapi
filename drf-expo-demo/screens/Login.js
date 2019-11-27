@@ -1,13 +1,42 @@
-import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button, Image } from 'react-native';
+import React from 'react';
+import { AsyncStorage } from "react-native";
+import { Dimensions, StyleSheet, Text, TextInput, View, Button, Image } from 'react-native';
+// import { Block, Button as GaButton, theme } from "galio-framework";
 
+const { width } = Dimensions.get("screen");
 
 export default class Login extends React.Component {
-    state = { email: '', password: '', errorMessage: null }
+    state = { email: '', password: '', errorMessage: null };
     handleLogin = () => {
       // TODO: Firebase stuff...
       console.log('login state:')
       console.log(this.state)
+      async function allauthLogin() {
+        try { 
+            let response = await fetch("http://localhost:8000/api/v1/rest-auth/login/", {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: creds.state['email'],
+                    email: creds.state['email'],
+                    password: this.props['password'],
+                }),
+            });
+            let responseJson = await response.json();
+            if (response.status == 200){
+              console.log('login succeeded; response = ');
+              console.log(responseJson);
+              // this.props['accessToken'] = responseJson['key'];
+              // d.props.navigtion.navigate('Home')
+            }
+        } catch (error){
+            console.error(error);
+        }
+    };
+    allauthLogin();
     }
     render() {
       return (
@@ -36,6 +65,11 @@ export default class Login extends React.Component {
             onChangeText={password => this.setState({ password })}
             value={this.state.password}
           />
+          {/* <Block center>
+            <Button textStyle={{ fontFamily: 'open-sans-bold' }} color="info" style={styles.button}>
+              INFO
+            </Button>
+          </Block> */}
           <Button title="Login" onPress={this.handleLogin} style={styles.buttonContainer}/>
           <Button
             title="Don't have an account? Sign Up"
@@ -86,4 +120,8 @@ const styles = StyleSheet.create({
         height: 98,
         justifyContent: "center",
     },
+    // button: {
+    //   marginBottom: theme.SIZES.BASE,
+    //   width: width - theme.SIZES.BASE * 2
+    // },
 });
