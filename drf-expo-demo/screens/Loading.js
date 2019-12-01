@@ -6,7 +6,8 @@ const DEFAULT_LOAD_TIME = 5000; // Five second default
 export default class Loading extends React.Component {
     componentDidMount(){
         setTimeout(() => {
-            this.props.navigation.navigate('SignUp');
+            // this.props.navigation.navigate('SignUp');
+            this.props.navigation.navigate('Login');
             }, DEFAULT_LOAD_TIME);
     }
     render() {

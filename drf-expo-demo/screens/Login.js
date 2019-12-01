@@ -8,9 +8,10 @@ const { width } = Dimensions.get("screen");
 export default class Login extends React.Component {
     state = { email: '', password: '', errorMessage: null };
     handleLogin = () => {
-      // TODO: Firebase stuff...
+      // TODO: API stuff...
       console.log('login state:')
       console.log(this.state)
+      console.log(this.state['email'])
       async function allauthLogin() {
         try { 
             let response = await fetch("http://localhost:8000/api/v1/rest-auth/login/", {
@@ -20,9 +21,9 @@ export default class Login extends React.Component {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: creds.state['email'],
-                    email: creds.state['email'],
-                    password: this.props['password'],
+                    username: this.state['email'],
+                    email: this.state['email'],
+                    password: this.state['password'],
                 }),
             });
             let responseJson = await response.json();
@@ -70,7 +71,10 @@ export default class Login extends React.Component {
               INFO
             </Button>
           </Block> */}
-          <Button title="Login" onPress={this.handleLogin} style={styles.buttonContainer}/>
+          <Button title="Login" 
+          // onPress={this.handleLogin} 
+          onPress={() => this.handleLogin()} 
+          style={styles.buttonContainer}/>
           <Button
             title="Don't have an account? Sign Up"
             onPress={() => this.props.navigation.navigate('SignUp')}
