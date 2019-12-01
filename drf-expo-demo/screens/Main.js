@@ -5,6 +5,7 @@ import { createAppContainer } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Login from './Login';
 import Profile from './Profile';
+import Accounts from './Accounts';
 
 class Main extends React.Component {
     state = { currentUser: null }
@@ -43,7 +44,16 @@ const MainTabs = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: 'Profile',
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-person" color={tintColor} size={24} />
+        <Icon name="md-person" color={tintColor} size={24} />
+      )
+    },
+  }, 
+  Accounts: {
+    screen: Accounts,
+    navigationOptions: {
+      tabBarLabel: 'Accounts',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="md-add-circle-outline" color={tintColor} size={24} />
       )
     },
   }, 
