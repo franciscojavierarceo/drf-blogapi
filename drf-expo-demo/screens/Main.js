@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    // alignItems: 'center'
   },
   image: {
         width: 98,
         height: 98,
-        justifyContent: "center",
+        // justifyContent: "center",
   },
   scrollArea: {
     // top: 0,
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   scrollArea_contentContainerStyle: {
     // width: 375,
-    height: 600
+    // height: 600
     // flex: 1,
   },
   group: {
@@ -158,5 +158,6 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     overflow: "hidden",
     marginBottom: 10,
+    justifyContent: "center",
   }
 });
