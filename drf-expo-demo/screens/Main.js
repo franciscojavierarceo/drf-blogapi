@@ -1,5 +1,13 @@
 import React from 'react';
-import { StyleSheet, Platform, Image, Text, View, Button } from 'react-native';
+import { 
+  StyleSheet, 
+  Platform, 
+  Image, 
+  Text, 
+  View, 
+  Button, 
+  ScrollView,
+  TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +28,27 @@ class Main extends React.Component {
                 <Text>
                   Hi {currentUser && currentUser.email}! this is your home page.
                 </Text>
+
+        <View 
+        style={styles.scrollAreaStack}
+        >
+        <View 
+        style={styles.scrollArea}
+        >
+          <ScrollView
+            horizontal={false}
+            contentContainerStyle={styles.scrollArea_contentContainerStyle}
+          >
+            <View style={styles.group}>
+              <TouchableOpacity style={styles.card}></TouchableOpacity>
+              {/* <TouchableOpacity style={styles.card}></TouchableOpacity>
+              <TouchableOpacity style={styles.card}></TouchableOpacity>
+              <TouchableOpacity style={styles.card}></TouchableOpacity>
+              <TouchableOpacity style={styles.card}></TouchableOpacity> */}
+            </View>
+          </ScrollView>
+        </View>
+        </View>
                 <Button
                   title="Let's sign up"
                   onPress={() => this.props.navigation.navigate('SignUp')}
@@ -78,7 +107,7 @@ export default createAppContainer(MainTabs);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -86,5 +115,48 @@ const styles = StyleSheet.create({
         width: 98,
         height: 98,
         justifyContent: "center",
+  },
+  scrollArea: {
+    // top: 0,
+    // left: 0,
+    // flex: 1,
+    // width: 375,
+    // height: 620,
+    backgroundColor: "rgba(248,248,248,5)",
+    // position: "absolute"
+  },
+  scrollArea_contentContainerStyle: {
+    // width: 375,
+    height: 600
+    // flex: 1,
+  },
+  group: {
+    // width: 308,
+    // height: 576,
+    // justifyContent: "space-between",
+    marginTop: 22,
+    // marginLeft: 34
+  },
+  scrollAreaStack: {
+    // width: 375,
+    // height: 674,
+    // flex: 1,
+    // marginTop: 1
+  },
+  card: {
+    width: 308,
+    height: 167,
+    backgroundColor: "rgba(255,255,255,5)",
+    elevation: 15,
+    borderRadius: 25,
+    shadowOffset: {
+      height: 5,
+      width: 5
+    },
+    shadowColor: "rgba(0,0,0,3)",
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    overflow: "hidden",
+    marginBottom: 10,
   }
 });
