@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Login from './Login';
 import Profile from './Profile';
 import Accounts from './Accounts';
+import Card from '../components/Cards';
 
 class Main extends React.Component {
     state = { currentUser: null }
@@ -21,36 +22,17 @@ class Main extends React.Component {
         const { currentUser } = this.state
         return (
               <View style={styles.container}>
-                <Image source={require("../assets/images/logo.png")}
-                resizeMode="contain"
-                style={styles.image}
-                ></Image>
-                <Text>
-                  Hi {currentUser && currentUser.email}! this is your home page.
+                <Text style={styles.headerText}>
+                  Hi {currentUser && currentUser.email}! this is your Main page.
                 </Text>
-
-        <View 
-        style={styles.scrollAreaStack}
-        >
-        <View 
-        style={styles.scrollArea}
-        >
           <ScrollView
             horizontal={false}
             contentContainerStyle={styles.scrollArea_contentContainerStyle}
           >
-            <View style={styles.group}>
-              <TouchableOpacity style={styles.card}></TouchableOpacity>
-              {/* <TouchableOpacity style={styles.card}></TouchableOpacity>
-              <TouchableOpacity style={styles.card}></TouchableOpacity>
-              <TouchableOpacity style={styles.card}></TouchableOpacity>
-              <TouchableOpacity style={styles.card}></TouchableOpacity> */}
-            </View>
+            <Card/>
           </ScrollView>
-        </View>
-        </View>
                 <Button
-                  title="Let's sign up"
+                  title="Sign out"
                   onPress={() => this.props.navigation.navigate('SignUp')}
                 />
               </View>
@@ -63,9 +45,15 @@ const MainTabs = createBottomTabNavigator({
     screen: Main,
     navigationOptions: {
       tabBarLabel: 'Main',
-      tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-home" color={tintColor} size={24} />
-      )
+      // tabBarIcon: ({ tintColor }) => (
+      //   <Icon name="ios-home" color={tintColor} size={24} />
+      // )
+      tabBarIcon: () => (
+        <Image source={require("../assets/images/logo_icon.png")}
+        resizeMode="contain"
+        style={styles.imageIcon}
+        ></Image> 
+      ) 
     },
   },
   Profile: {
@@ -107,14 +95,22 @@ export default createAppContainer(MainTabs);
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 60,
+    // justifyContent: 'center',
     // flex: 1,
-    justifyContent: 'center',
-    // alignItems: 'center'
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // marginTop: 20,
   },
-  image: {
-        width: 98,
-        height: 98,
-        // justifyContent: "center",
+  headerText: {
+    marginTop: 60,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  imageIcon: {
+        width: 30,
+        height: 30,
+        justifyContent: "center",
   },
   scrollArea: {
     // top: 0,
@@ -142,6 +138,7 @@ const styles = StyleSheet.create({
     // height: 674,
     // flex: 1,
     // marginTop: 1
+    // justifyContent: "center",
   },
   card: {
     width: 308,
@@ -158,6 +155,6 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     overflow: "hidden",
     marginBottom: 10,
-    justifyContent: "center",
+    // justifyContent: "center",
   }
 });

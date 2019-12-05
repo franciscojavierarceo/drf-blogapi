@@ -12,20 +12,14 @@ class Profile extends Component {
         const { currentUser } = this.state
         return (
               <View style={styles.container}>
-                <Image source={require("../assets/images/logo.png")}
-                resizeMode="contain"
-                style={styles.image}
-                ></Image>
-                <Text>
+                <Text style={styles.headerText}>
                   Hi {currentUser && currentUser.email}! This is your profile page.
                 </Text>
 
-                <View style={styles.bottom}>
                     <Button
-                      title="Let's sign up"
-                      onPress={() => this.props.navigation.navigate('Main')}
+                      title="Signout"
+                      onPress={() => this.props.navigation.navigate('SignUp')}
                     />
-                </View>
               </View>
             )
           }
@@ -35,19 +29,25 @@ export default Profile;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10
+    marginTop: 60,
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // padding: 10
+  },
+  headerText: {
+    marginTop: 60,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
   image: {
         width: 98,
         height: 98,
-        justifyContent: "center",
+        // justifyContent: "center",
   },
   bottom: {
-      flex: 1,
-      justifyContent: 'flex-end',
+      // flex: 1,
+      // justifyContent: 'flex-end',
     //   marginBottom: 36,
   }
 });
