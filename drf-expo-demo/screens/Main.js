@@ -29,8 +29,12 @@ class Main extends React.Component {
             horizontal={false}
             contentContainerStyle={styles.scrollArea_contentContainerStyle}
           >
+            {/* <ScrollView horizontal> */}
             <Card/>
-          </ScrollView>
+            <Card/>
+            <Card/>
+            </ScrollView>
+          {/* </ScrollView> */}
                 <Button
                   title="Sign out"
                   onPress={() => this.props.navigation.navigate('SignUp')}

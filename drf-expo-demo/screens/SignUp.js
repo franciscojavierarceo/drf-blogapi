@@ -64,12 +64,19 @@ render() {
         <Button
           title="Already have an account? Login"
           onPress={() => this.props.navigation.navigate('Login')}
+          style={styles.bottomButton}
         />
       </View>
     )
   }
 }
 const styles = StyleSheet.create({
+    bottomButton: {
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 0
+    },
     image: {
         width: 98,
         height: 98,
