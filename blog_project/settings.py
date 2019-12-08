@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'rest_auth.registration',
 
     # Local apps
-    'posts',
+    'posts.apps.PostsConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'users.CustomUser' 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
