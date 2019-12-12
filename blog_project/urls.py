@@ -26,4 +26,7 @@ urlpatterns = [
     path('api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
+    # you CANNOT have this with the others...so i'm commenting it out as a reminder 
+        # it will give this error: duplicate key value violates unique constraint "users_customuser_username_key" DETAIL:  Key (username)=() already exists.
+    # path('accounts/', include('allauth.urls')),
 ]
