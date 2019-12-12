@@ -2,18 +2,32 @@
 
 ## DRF + Docker
 
-Make sure you have Docker installed and then run the following: 
+Make sure you have Docker installed.
 
+To build this the first time you simply have to run: 
 ```
 $ git clone git@github.com:franciscojavierarceo/drf-blogapi.git
 $ cd drf-blogapi
-$ docker volume rm drf-blogapi_postgres_data
 $ docker-compose run web bash build.sh 
 $ docker-compose down
 $ docker-compose up --build
 ```
 
-To test the DRF registration and login endpoitns go to a separate terminal and try:
+Note that this creates a default user with the following details:
+- username: admin
+- email: admin@djangox.com
+- password: password123
+
+
+Then to rebuild the project you have to run:
+```
+$ docker volume rm drf-blogapi_postgres_data    # this wipes the postgres database created by docker
+$ docker-compose run web bash build.sh          # this runs the migrations and creates the admin user
+$ docker-compose down                           # just to stop the service to relaunch
+$ docker-compose up --build
+```
+
+To test the DRF registration and login endpoints go to a separate terminal and try:
 
 ```
 curl -X POST -d "username=testuser2&email=testuser2@djangox.com&password1=random0232&password2=random0232" http://localhost:8000/api/v1/rest-auth/registration/
