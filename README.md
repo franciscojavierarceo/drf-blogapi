@@ -13,6 +13,9 @@ $ docker-compose down
 $ docker-compose up --build
 ```
 
+You should now be able to see the homepage on https://localhost:8000
+
+
 Note that this creates a default user with the following details:
 - username: admin
 - email: admin@djangox.com
