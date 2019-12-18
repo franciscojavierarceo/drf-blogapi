@@ -33,8 +33,13 @@ $ docker-compose up --build
 To test the DRF registration and login endpoints go to a separate terminal and try:
 
 ```
-curl -X POST -d "username=testuser2&email=testuser2@djangox.com&password1=random0232&password2=random0232" http://localhost:8000/api/v1/rest-auth/registration/
-curl -X POST -d "username=testuser2&password=random0232" http://localhost:8000/api/v1/rest-auth/login/
+# This was valid for the old username
+# curl -X POST -d "username=testuser2&email=testuser2@djangox.com&password1=random0232&password2=random0232" http://localhost:8000/api/v1/rest-auth/registration/
+# curl -X POST -d "username=testuser2&password=random0232" http://localhost:8000/api/v1/rest-auth/login/
+
+# with the custom username try:
+curl -X POST -d "email=testuser3@djangox.com&password1=random0232&password2=random0232" http://localhost:8000/api/v1/rest-auth/registration/
+curl -X POST -d "email=testuser3@djangox.com&password=random0232" http://localhost:8000/api/v1/rest-auth/login/
 ```
 
 ## React Native + Yarn

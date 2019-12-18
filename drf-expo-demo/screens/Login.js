@@ -12,7 +12,9 @@ export default class Login extends React.Component {
       console.log('login state:')
       console.log(this.state)
       console.log(this.state['email'])
-      async function allauthLogin() {
+      async function allauthLogin(d) {
+      const {navigation} = this.props;
+      console.log(this.props);
         try { 
             let response = await fetch("http://localhost:8000/api/v1/rest-auth/login/", {
                 method: 'POST',
@@ -21,23 +23,24 @@ export default class Login extends React.Component {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: this.state['email'],
-                    email: this.state['email'],
-                    password: this.state['password'],
+                    email: d['email'],
+                    password: d['password'],
                 }),
             });
             let responseJson = await response.json();
             if (response.status == 200){
               console.log('login succeeded; response = ');
               console.log(responseJson);
-              // this.props['accessToken'] = responseJson['key'];
-              // d.props.navigtion.navigate('Home')
+              await AsyncStorage.setItem('userToken', responseJson['key']);
+              console.log(AsyncStorage['userToken'])
+              // props.navigation.navigate('Main');
+              navigation.navigate('Main');
             }
         } catch (error){
             console.error(error);
         }
-    };
-    allauthLogin();
+      };
+      allauthLogin(this.state);
     }
     render() {
       return (
@@ -81,7 +84,7 @@ export default class Login extends React.Component {
         </View>
       )
     }
-};
+}
 
 const styles = StyleSheet.create({
     container: {
