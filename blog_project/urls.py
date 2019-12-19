@@ -16,14 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
+from allauth.account.views import confirm_email as allauthemailconfirmation
+from rest_auth.registration.views import VerifyEmailView,RegisterView
+from rest_framework.authtoken import views as rest_framework_views
 
 urlpatterns = [
+   
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('thankyou/', TemplateView.as_view(template_name='thankyou.html'), name='thankyou'),
+    path('email_sent/', TemplateView.as_view(template_name='email_sent.html'), name='email_sent'),
     path('admin/', admin.site.urls),
     path('posts/api/v1/', include('posts.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/rest-auth/', include('rest_auth.urls')),
     path('api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),
+    
+    path('accounts/', include('allauth.urls')),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
     # you CANNOT have this with the others...so i'm commenting it out as a reminder 

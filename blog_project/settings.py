@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy 
+from django.utils.translation import gettext_lazy
+from django.core.mail import send_mail
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT', default='development')
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'mo&431a+djcw_yc_sjy2a08l9qg&#nylxh9s2$rtgp!a4wsnyh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=0))
 
@@ -147,7 +148,19 @@ USE_L10N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = 'users.CustomUser' 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+ACCOUNT_ACTIVATION_DAYS=7
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'User_email@gmail.com'
+EMAIL_HOST_PASSWORD = 'user_password'
+# EMAIL_USE_SSL = True
+
+SITE_ID = 1
+
+AUTH_USER_MODEL = 'users.CustomUser'
+# AUTH_USER_MODEL = 'auth.User'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 ACCOUNT_SESSION_REMEMBER = True
@@ -161,7 +174,7 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 #ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.CustomUserCreationForm'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'thankyou'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'email_sent'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'thankyou'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 # Static files (CSS, JavaScript, Images)
@@ -169,8 +182,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
 STATIC_URL = '/static/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-SITE_ID = 1
+
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -186,3 +198,20 @@ CORS_ORIGIN_WHITELIST = (
 'localhost:19002',
 #'*',
 )
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+# Required by allauth template tags
+"django.core.context_processors.request",
+# allauth specific context processors
+"allauth.account.context_processors.account",
+"allauth.socialaccount.context_processors.socialaccount",
+)
+
+# REST_AUTH_SERIALIZERS = {
+#     'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
+#     'TOKEN_SERIALIZER': 'path.to.custom.TokenSerializer',
+# }
+ACCOUNT_FORMS = {
+'signup': 'path.to.custom.SignupForm',
+}
+
