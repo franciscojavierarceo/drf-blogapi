@@ -148,16 +148,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-ACCOUNT_ACTIVATION_DAYS=7
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'User_email@gmail.com'
-EMAIL_HOST_PASSWORD = 'user_password'
-# EMAIL_USE_SSL = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-SITE_ID = 1
 
 AUTH_USER_MODEL = 'users.CustomUser'
 # AUTH_USER_MODEL = 'auth.User'
@@ -174,7 +166,7 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 #ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.CustomUserCreationForm'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'email_sent'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'thankyou'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'thankyou'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 # Static files (CSS, JavaScript, Images)
@@ -182,6 +174,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
 STATIC_URL = '/static/'
 
+SITE_ID = 1
 
 
 AUTHENTICATION_BACKENDS = (
