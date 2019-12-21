@@ -148,8 +148,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'roughosh47@gmail.com'
+EMAIL_HOST_PASSWORD = 'babi21091992#'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 # AUTH_USER_MODEL = 'auth.User'
@@ -204,7 +209,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 #     'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
 #     'TOKEN_SERIALIZER': 'path.to.custom.TokenSerializer',
 # }
-ACCOUNT_FORMS = {
-'signup': 'path.to.custom.SignupForm',
-}
+# ACCOUNT_FORMS = {
+# 'signup': 'path.to.custom.SignupForm',
+# }
 

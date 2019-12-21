@@ -7,6 +7,4 @@ from rest_framework import routers
 
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
-    
-
 ]
