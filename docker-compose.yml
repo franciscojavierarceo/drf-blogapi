@@ -5,11 +5,11 @@ services:
         env_file:
             - .env
         build: .
-        command: python /code/manage.py runserver 0.0.0.0:8002
+        command: python /code/manage.py runserver 0.0.0.0:8003
         volumes:
             - .:/code
         ports:
-            - 8002:8002
+            - 8003:8003
         depends_on:
             - db
     db:
