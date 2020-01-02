@@ -214,15 +214,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # 'signup': 'path.to.custom.SignupForm',
 # }
 
-# TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
-# TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
-
 # # The default callerid will be used for all outgoing phone calls and SMS
 # # messages if not explicitly specified. This number must be previously
 # # validated with twilio in order to work. See
 # # https://www.twilio.com/user/account/phone-numbers#
-# TWILIO_DEFAULT_CALLERID = os.environ.get('TWILIO_DEFAULT_CALLERID')
 
-TWILIO_ACCOUNT_SID= 'AC9953a70ed48d9df9fe1162b0e39740cc'
-TWILIO_AUTH_TOKEN = '3e67d98d3cf917ffe2c87542efe5749e'
-TWILIO_DEFAULT_CALLERID = '+18635761539'
+TWILIO_DEFAULT_CALLERID = os.environ.get('TWILIO_DEFAULT_CALLERID')
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
