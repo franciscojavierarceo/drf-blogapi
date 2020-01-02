@@ -148,13 +148,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# These settings are only necessary for production and not locally
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 AUTH_USER_MODEL = 'users.CustomUser'
 # AUTH_USER_MODEL = 'auth.User'
@@ -191,19 +192,19 @@ AUTHENTICATION_BACKENDS = (
 )
 
 CORS_ORIGIN_WHITELIST = (
-'localhost:3000',
-'localhost:19000',
-'localhost:19001',
-'localhost:19002',
+    'localhost:3000',
+    'localhost:19000',
+    'localhost:19001',
+    'localhost:19002',
 #'*',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-# Required by allauth template tags
-"django.core.context_processors.request",
-# allauth specific context processors
-"allauth.account.context_processors.account",
-"allauth.socialaccount.context_processors.socialaccount",
+    # Required by allauth template tags
+    "django.core.context_processors.request",
+    # allauth specific context processors
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 # REST_AUTH_SERIALIZERS = {
