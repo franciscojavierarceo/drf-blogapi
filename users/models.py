@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class CustomUser(AbstractUser):
     # pass
-    username=models.CharField(max_length=30, unique=False)
+    username=models.CharField(max_length=30, unique=True)
     # add additional fields in here
     phone_number = models.CharField(max_length=30, default= None, null=True, blank=True)
     verification_code = models.IntegerField(default=None, blank=True, null=True)
