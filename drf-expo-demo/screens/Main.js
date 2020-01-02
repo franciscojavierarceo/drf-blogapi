@@ -1,11 +1,11 @@
 import React from 'react';
-import { 
-  StyleSheet, 
-  Platform, 
-  Image, 
-  Text, 
-  View, 
-  Button, 
+import {
+  StyleSheet,
+  Platform,
+  Image,
+  Text,
+  View,
+  Button,
   ScrollView,
   TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -56,8 +56,8 @@ const MainTabs = createBottomTabNavigator({
         <Image source={require("../assets/images/logo_icon.png")}
         resizeMode="contain"
         style={styles.imageIcon}
-        ></Image> 
-      ) 
+        ></Image>
+      )
     },
   },
   Profile: {
@@ -68,7 +68,7 @@ const MainTabs = createBottomTabNavigator({
         <Icon name="md-person" color={tintColor} size={24} />
       )
     },
-  }, 
+  },
   Accounts: {
     screen: Accounts,
     navigationOptions: {
@@ -77,7 +77,7 @@ const MainTabs = createBottomTabNavigator({
         <Icon name="md-add-circle-outline" color={tintColor} size={24} />
       )
     },
-  }, 
+  },
 },
   {
   tabBarOptions: {
