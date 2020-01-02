@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 class CustomUser(AbstractUser):
-    # pass
-    username=models.CharField(max_length=30, unique=True)
+    email = models.EmailField('email address', unique=True)
+    username = models.CharField(max_length=30, unique=False)
     # add additional fields in here
     phone_number = models.CharField(max_length=30, default= None, null=True, blank=True)
     verification_code = models.IntegerField(default=None, blank=True, null=True)
