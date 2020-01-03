@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views  import SignUpView, PhoneVerificationView, verification_confirm
+from .views  import SignUpView, PhoneVerificationView, PhoneVerificationConfirmView
 from rest_framework import routers
 
 # router= routers.DefaultRouter() ==> generating tokens
@@ -8,6 +8,6 @@ from rest_framework import routers
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
     path('sendcode/', PhoneVerificationView.as_view(), name='post_new'),
-    path('verification/', verification_confirm, name='verification_confirm')
+    path('verification/', PhoneVerificationConfirmView.as_view(), name='verification_confirm')
    
 ]
