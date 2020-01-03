@@ -57,7 +57,7 @@ class PhoneVerificationView(View):
             return redirect('verification_confirm')
         else:
             form = CodeConfirmForm()
-        return redner(request, 'verification.html', {'form': form})
+        return render(request, 'verification.html', {'form': form})
 
 
 def verification_confirm(request):
