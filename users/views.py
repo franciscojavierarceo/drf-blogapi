@@ -81,6 +81,7 @@ class PhoneVerificationConfirmView(View):
                 return redirect('thankyou')
             else:
                 # we should probably trigger an error here or not redirect
+                print('code entered did not match sent!')
                 return redirect('/')
         else:
             form = CodeConfirmForm()
