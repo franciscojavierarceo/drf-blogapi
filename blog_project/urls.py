@@ -15,17 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import TemplateView
+from .views import ThankYouPageView, HomePageView
+from allauth.account.views import confirm_email as allauthemailconfirmation
+from rest_auth.registration.views import VerifyEmailView,RegisterView
+from rest_framework.authtoken import views as rest_framework_views
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', HomePageView.as_view(), name='home'),
+    path('thankyou/', ThankYouPageView.as_view(), name='thankyou'),
     path('admin/', admin.site.urls),
     path('posts/api/v1/', include('posts.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/rest-auth/', include('rest_auth.urls')),
     path('api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('users/', include('users.urls')),
-    path('users/', include('django.contrib.auth.urls')),
+    path('mobile/', include('users.urls')),
+    path('accounts/', include('allauth.urls')),
+    # path('users/', include('users.urls')),
+    # path('users/', include('django.contrib.auth.urls')),
     # you CANNOT have this with the others...so i'm commenting it out as a reminder 
         # it will give this error: duplicate key value violates unique constraint "users_customuser_username_key" DETAIL:  Key (username)=() already exists.
     # path('accounts/', include('allauth.urls')),

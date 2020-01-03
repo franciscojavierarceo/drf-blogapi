@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy 
+from django.utils.translation import gettext_lazy
+from django.core.mail import send_mail
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT', default='development')
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY') 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=0))
 
@@ -147,7 +148,17 @@ USE_L10N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = 'users.CustomUser' 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# These settings are only necessary for production and not locally
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+
+AUTH_USER_MODEL = 'users.CustomUser'
+# AUTH_USER_MODEL = 'auth.User'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 ACCOUNT_SESSION_REMEMBER = True
@@ -170,8 +181,8 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
 STATIC_URL = '/static/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
+
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -181,9 +192,34 @@ AUTHENTICATION_BACKENDS = (
 )
 
 CORS_ORIGIN_WHITELIST = (
-'localhost:3000',
-'localhost:19000',
-'localhost:19001',
-'localhost:19002',
+    'localhost:3000',
+    'localhost:19000',
+    'localhost:19001',
+    'localhost:19002',
 #'*',
 )
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    # Required by allauth template tags
+    "django.core.context_processors.request",
+    # allauth specific context processors
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+)
+
+# REST_AUTH_SERIALIZERS = {
+#     'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
+#     'TOKEN_SERIALIZER': 'path.to.custom.TokenSerializer',
+# }
+# ACCOUNT_FORMS = {
+# 'signup': 'path.to.custom.SignupForm',
+# }
+
+# # The default callerid will be used for all outgoing phone calls and SMS
+# # messages if not explicitly specified. This number must be previously
+# # validated with twilio in order to work. See
+# # https://www.twilio.com/user/account/phone-numbers#
+
+TWILIO_DEFAULT_CALLERID = os.environ.get('TWILIO_DEFAULT_CALLERID')
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
