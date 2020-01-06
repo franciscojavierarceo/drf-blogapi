@@ -55,10 +55,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth',
     'rest_auth.registration',
+    'rest_framework_swagger',
 
     # Local apps
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
+    'New_Users.apps.NewUsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -224,5 +226,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # TWILIO_DEFAULT_CALLERID = os.environ.get('TWILIO_DEFAULT_CALLERID')
 
 TWILIO_ACCOUNT_SID= 'AC9953a70ed48d9df9fe1162b0e39740cc'
-TWILIO_AUTH_TOKEN = '3e67d98d3cf917ffe2c87542efe5749e'
+TWILIO_AUTH_TOKEN = 'e1365ed191217f2dcdd9f753229384b1'
 TWILIO_DEFAULT_CALLERID = '+18635761539'
