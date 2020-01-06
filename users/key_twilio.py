@@ -1,4 +1,6 @@
-tel= '9874802142'
-account_token= '3e67d98d3cf917ffe2c87542efe5749e'
-account_sid='AC9953a70ed48d9df9fe1162b0e39740cc'
-twil= '+18635761539'
+import os
+
+tel = os.environ.get('TWILIO_TELEPHONE_NUMBER')
+account_token = os.environ.get('TWILIO_AUTH_TOKEN')
+account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+twil = os.environ.get('TWILIO_DEFAULT_CALLERID')

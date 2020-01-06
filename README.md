@@ -8,6 +8,7 @@ To build this the first time you simply have to run:
 ```
 $ git clone git@github.com:franciscojavierarceo/drf-blogapi.git
 $ cd drf-blogapi
+$ pipenv install
 $ docker-compose run web bash build.sh 
 $ docker-compose down
 $ docker-compose up --build

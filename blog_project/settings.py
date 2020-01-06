@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT', default='development')
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mo&431a+djcw_yc_sjy2a08l9qg&#nylxh9s2$rtgp!a4wsnyh'
+SECRET_KEY = os.environ.get('SECRET_KEY') 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=0))
 
@@ -150,13 +150,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# These settings are only necessary for production and not locally
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 AUTH_USER_MODEL = 'users.CustomUser'
 # AUTH_USER_MODEL = 'auth.User'
@@ -193,19 +194,19 @@ AUTHENTICATION_BACKENDS = (
 )
 
 CORS_ORIGIN_WHITELIST = (
-'localhost:3000',
-'localhost:19000',
-'localhost:19001',
-'localhost:19002',
+    'localhost:3000',
+    'localhost:19000',
+    'localhost:19001',
+    'localhost:19002',
 #'*',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-# Required by allauth template tags
-"django.core.context_processors.request",
-# allauth specific context processors
-"allauth.account.context_processors.account",
-"allauth.socialaccount.context_processors.socialaccount",
+    # Required by allauth template tags
+    "django.core.context_processors.request",
+    # allauth specific context processors
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 # REST_AUTH_SERIALIZERS = {
@@ -216,15 +217,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # 'signup': 'path.to.custom.SignupForm',
 # }
 
-# TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
-# TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
-
 # # The default callerid will be used for all outgoing phone calls and SMS
 # # messages if not explicitly specified. This number must be previously
 # # validated with twilio in order to work. See
 # # https://www.twilio.com/user/account/phone-numbers#
-# TWILIO_DEFAULT_CALLERID = os.environ.get('TWILIO_DEFAULT_CALLERID')
 
-TWILIO_ACCOUNT_SID= 'AC9953a70ed48d9df9fe1162b0e39740cc'
-TWILIO_AUTH_TOKEN = 'e1365ed191217f2dcdd9f753229384b1'
-TWILIO_DEFAULT_CALLERID = '+18635761539'
+TWILIO_DEFAULT_CALLERID = os.environ.get('TWILIO_DEFAULT_CALLERID')
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
