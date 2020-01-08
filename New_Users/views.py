@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import HouseholdForm, New_UserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import FriendTypeStyle
 from django.contrib.auth import get_user_model
+import yagmail
 
 User = get_user_model
 
@@ -34,7 +35,17 @@ def user_form(request):
             # print(request.POST['FriendPermission'])
             data.FriendEmail = request.POST['FriendEmail']
             data.save()
-            return HttpResponse('Successfully logged in')
+            yagmail.register("roughosh47@gmail.com", "babi21091992#")
+            yag = yagmail.SMTP(user="roughosh47@gmail.com", password="babi21091992#", host="smtp.gmail.com")
+            email = data.FriendEmail
+            default_subject = "HouseHold income memeber mail confirmation"
+            user = request.user
+            contents= ["Hi, {} has added  you as a member to view/edit financial data".format(user)]
+            
+            # msg = yag.send(email, default_subject,contents)
+            yag.send(email, default_subject, contents)
+            
+            return redirect('thankyou')
     else:
         form = HouseholdForm()
         return render(request, 'household.html', {'form':form})
