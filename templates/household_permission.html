@@ -41,24 +41,9 @@ input[type=submit]:hover {
 <div class="container">
   <form method="post">
       {% csrf_token %}
+      
       {% block content %}
       {% endblock %}
-    <!-- <select id = "partners" name = "partners">
-      <option value="0">--Select--</option>
-      <option value="Partner">Partner</option>
-      <option value="Sibling">Sibling</option>
-      <option value="Parent">Parent</option>
-      <option value="Child">Child</option>
-      <option value="Other">Other</option>
-    </select>
-
-    <select id="Access" name = "access">
-      <option value ="0">--Access Rights--</option>
-      <option value ="Read">Read</option>
-      <option value ="Write">Write</option>
-    </select>
-
-    <input type="text" id="email" name="Email Address" placeholder="babi@spotings.com"> -->
     <input type="submit">
   
   </form>

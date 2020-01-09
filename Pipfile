@@ -18,6 +18,7 @@ django-rest-swagger= "==2.2.0"
 yagmail = "*"
 keyring = "*"
 keyrings-alt = "*"
+email-to = "*"
 
 [requires]
 python_version = "3.7"

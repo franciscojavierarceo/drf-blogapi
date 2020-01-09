@@ -14,3 +14,9 @@ class HouseholdForm(forms.ModelForm):
     class Meta:
         model = Household
         fields = ('FriendType', 'Household_income', 'Household_name','FriendPermission', 'FriendEmail')
+
+class HouseholdRedirectForm(forms.ModelForm):
+
+    class Meta:
+        model = Household
+        fields = ('Household_income',)
