@@ -13,16 +13,3 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email')
-
-class MobileForm(forms.ModelForm):
-
-    class Meta:
-        model = CustomUser
-        fields = ('phone_number',)
-
-class CodeConfirmForm(forms.ModelForm):
-
-    class Meta:
-        model = CustomUser
-        fields = ('verification_code',)
-
