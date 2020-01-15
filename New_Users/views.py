@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import HouseholdForm, New_UserForm, HouseholdRedirectForm
 from django.contrib.auth.decorators import login_required
-# from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import FriendTypeStyle
 from django.contrib.auth import get_user_model
-import yagmail
 from .serializers import HouseholdSerializers
 from .models import Household
 from django.conf import settings
@@ -13,22 +14,37 @@ from django.core.mail import EmailMessage, send_mail
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponse
+from rest_framework.parsers import JSONParser
+from django.views import View
+# from braces.views import CsrfExemptMixin
 User = get_user_model()
 
-@login_required
-def user_form(request):
 
-    if request.method == 'POST':
-        form = HouseholdForm(request.POST)
+class FormVerificationView(View):
+
+    template_name = "household.html"
+    form_class = HouseholdForm 
+    context = {}
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        self.context.update({'form':form})
+        return render(request, self.template_name , self.context)
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        
+        form = self.form_class(request.POST)
+        
         if form.is_valid():
 
             data = form.save(commit=False)
             data.FriendType = FriendTypeStyle.get(int(request.POST['FriendType'])).value
             name=request.POST['name']
             data.User_email_created_by = request.user
-            # data.Household_name = request.POST['Household_name']
-            # data.Household_income = request.POST['Household_income']
             print(FriendTypeStyle.get(int(request.POST['FriendType'])).value)
             
             if str(request.POST.get('FriendPermission')) == 'on':
@@ -39,11 +55,10 @@ def user_form(request):
                 data.FriendPermission = False
 
             data.FriendEmail = request.POST['FriendEmail']
-            # data.save()
-            
-            
+            # pk = self.kwargs['pk']
+            pk = data.pk
+            print(pk)
             flag=0
-            #email verification
             print(list(User.objects.all()))
             user_list = list(User.objects.all().values('email'))
             print(list(User.objects.all().values('email')))
@@ -57,7 +72,7 @@ def user_form(request):
                 print('check')
                 user =request.user
                 Subject = 'Hi, this an automated mail sent'
-                Body = "Hi {}, {} has invited you to log in as a member to view/edit financial data, Go to the page: <a href='http://0.0.0.0:8000/new/household/{}'>click here</a>".format(name,user,data.pk)
+                Body = "Hi {}, {} has invited you to log in as a member to view/edit financial data, Go to the page: <a href='http://0.0.0.0:8000/new/household/'>click here</a>".format(name,user)
                 required = 0
                 send_mail(
                             Subject,
@@ -67,6 +82,7 @@ def user_form(request):
                             fail_silently=False,
                         )
                 print('message succeeded')
+            
             else:
 
                 print('did not enter')
@@ -86,73 +102,144 @@ def user_form(request):
                 # return redirect('user_form')
             
             return redirect('thankyou')
-    else:
-        form = HouseholdForm()
-        return render(request, 'household.html', {'form':form})
+        else:
+            form = HouseholdForm()
+            return render(request, 'household.html', {'form':form})        
 
 @login_required
 def index(request):
 
     return HttpResponse('Thank you for logging in')
 
-@login_required
-def blog_post(request, pk):
-    
-    obj = get_object_or_404(Household, pk=pk)
-    
-    if request.method == 'POST':
-        form = HouseholdRedirectForm(request.POST, instance=obj)
+class BlogPostVerificationView(View):
+
+    template_name = 'household_redirect.html'
+    form_class = HouseholdRedirectForm 
+    context = {}
+
+    @method_decorator(login_required)
+    def get(self, request, *args, **kwargs):
+        
+        obj = get_object_or_404(Household, pk=kwargs['pk'])
+        form = self.form_class(instance=obj)
+        self.context.update({'form':form})
+        return render(request, self.template, self.context)
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+
+        obj = get_object_or_404(Household, pk=kwargs['pk'])
+        form = self.form_class(request.POST, instance=obj)
+        
         if form.is_valid():
             obj = form.save(commit=False)
             obj.Household_income = request.POST['Household_income']
 
             obj.save()
             return redirect("/")
+        return redirect("/")
+        # else:
+        #     form = HouseholdRedirectForm(instance=obj)
+        #     return render(request, self.template_name, {'form':form})
+        # self.context.update({'form':form})
+        # return render(request, self.template, self.context)
 
-    else:
-        form = HouseholdRedirectForm(instance=obj)
-        return render(request, 'household_redirect.html', {'form':form})
+# @login_required
+# def blog_post(request, pk):
+    
+#     obj = get_object_or_404(Household, pk=pk)
+    
+#     if request.method == 'POST':
+#         form = HouseholdRedirectForm(request.POST, instance=obj)
+#         if form.is_valid():
+#             obj = form.save(commit=False)
+#             obj.Household_income = request.POST['Household_income']
 
-def send_email():
-        
-        # user =HouseholdSerializers.User_email_created_by
-        Subject = 'Hi, this an automated mail sent'
-        Body = "Hi, admin invited you to log in as a member to view/edit financial data, Go to the page: <a href='http://0.0.0.0:8000/new/snippets/'>click here</a>"
-        required = 0
-        send_mail(
-                    Subject,
-                    Body,
-                    settings.EMAIL_HOST_USER,
-                    [HouseholdSerializers.FriendEmail],
-                    fail_silently=False,
-                )
-        print('message succeeded')
+#             obj.save()
+#             return redirect("/")
+#     else:
+#         form = HouseholdRedirectForm(instance=obj)
+#         return render(request, 'household_redirect.html', {'form':form})
+
+def send_email(request, val1,val2):
+    
+    print('you have entered send_mail')
+    
+    value=val1
+    Email = val2
+    print('This is inside send_mail')
+    print(val1)
+    print(val2)
+    
+    Subject = 'Hi, this an automated mail sent'
+    Body = "Hi, admin invited you to log in as a member to view/edit financial data, Go to the page: <a href='http://0.0.0.0:8000/new/snippets/{}'>click here</a>".format(value)
+    send_mail(
+                Subject,
+                Body,
+                settings.EMAIL_HOST_USER,
+                [Email],
+                fail_silently=False,
+            )
+    print('message succeeded')
+
+def send_email_link(request, val2):
+    
+    print('you have entered send_mail_link')
+
+    Email = val2
+    print('This is inside send_mail_link')
+    print(val2)
+
+    Subject = 'Hi, this an automated mail sent'
+    Body = "Hi, admin invited you to log in as a member to view/edit financial data, Kindly sign up and Go to the page: <a href='http://0.0.0.0:8000/api/v1/rest-auth/registration/'>click here</a>"
+    
+    send_mail(
+                Subject,
+                Body,
+                settings.EMAIL_HOST_USER,
+                [Email],
+                fail_silently=False,
+            )
+    print('message succeeded')
 
 class HouseholdList(generics.ListCreateAPIView):
     
     queryset = Household.objects.all()
-    serializer_class = HouseholdSerializers(queryset, many=True)
+    serializer_class = HouseholdSerializers
 
-    def get_field_names(self, *args, **kwargs):
+
+    def get(self, request, *args, **kwargs):
+
+        print("Success")
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+
+        Value1=[]
+        Var= self.create(request, *args, **kwargs)
+        print(Var.data)
+        val1=Var.data['id']
+        val2=Var.data['FriendEmail']
+        print(Var.data['id'])
+        print(val2)
         
-        field_names = self.context.get('FriendEmail', None)
-        if field_names:
-            return field_names
-        return super(self).get_field_names(*args, **kwargs)
-
-    def create(self, request, *args, **kwargs):
-
-        response = super(HouseholdList, self).create(request, *args, **kwargs)
-        send_email()  # sending mail
-        return response
-    
+        print('breaking point')
+        print(list(User.objects.all().values('email')))
+        User_list = list(User.objects.all().values('email'))
+        for values in range(len(User_list)):
+            if User_list[values]['email'] == val2:
+                print("exists")
+                send_email(request, val1, val2)
+                break
+            else:
+                print("does not exists")
+                send_email_link(request, val2)    
+        return Var
 
 class HouseholdDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Household.objects.all()
     serializer_class = HouseholdSerializers
-
-    
 
 @api_view()
 def hello(request):

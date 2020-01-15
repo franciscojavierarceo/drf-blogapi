@@ -35,7 +35,8 @@ urlpatterns = [
     path('mobile/', include('Twilio.urls')),
     path('accounts/', include('allauth.urls')),
     path('new/', include('New_Users.urls')),
-    path('swagger/', schema_view)
+    path('swagger/', schema_view),
+    # path('plaid/', include('Plaid.urls'))
     # path('users/', include('users.urls')),
     # path('users/', include('django.contrib.auth.urls')),
     # you CANNOT have this with the others...so i'm commenting it out as a reminder 

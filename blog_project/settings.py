@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'New_Users.apps.NewUsersConfig',
     'Twilio.apps.TwilioConfig',
+    'Plaid.apps.PlaidConfig',
 ]
 
 MIDDLEWARE = [
@@ -152,7 +153,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # These settings are only necessary for production and not locally
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
