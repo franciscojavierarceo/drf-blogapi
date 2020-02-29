@@ -1,0 +1,6 @@
+twilio==6.35.1
+django-enumfield==2.0.1
+django-rest-swagger==2.2.0
+yagmail
+keyring
+keyrings.alt

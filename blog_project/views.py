@@ -5,3 +5,4 @@ class ThankYouPageView(TemplateView):
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
+

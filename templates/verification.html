@@ -1,10 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<center>
     <h2>New post</h2>
+    <br>
+    <label>Select Country</label>
+        <select id= "Country_names" onchange="ddselect();" onclick="addOption();">
+               <option>--Select Country--</option>
+               <!-- <option value="+91">India</option>
+               <option value="+86">China</option>
+               <option value="+385">Croatia</option>
+               <option value="+49">Germany</option> -->
+        </select>
+        <label>Country Code</label>
+        
+        <input type="text" id="txtvalue" placeholder="code">
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        
         <button type="submit">Save</button>
     </form>
+</center>
+   
 {% endblock %}

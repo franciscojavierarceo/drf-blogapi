@@ -16,4 +16,3 @@ def send_twilio_message(to_number, body):
         to=to_number,
         from_=settings.TWILIO_DEFAULT_CALLERID
     )
-    

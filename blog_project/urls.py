@@ -19,6 +19,10 @@ from .views import ThankYouPageView, HomePageView
 from allauth.account.views import confirm_email as allauthemailconfirmation
 from rest_auth.registration.views import VerifyEmailView,RegisterView
 from rest_framework.authtoken import views as rest_framework_views
+# from users.views import post_new
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Pastebin API')
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
@@ -28,8 +32,11 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/rest-auth/', include('rest_auth.urls')),
     path('api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('mobile/', include('users.urls')),
+    path('mobile/', include('Twilio.urls')),
     path('accounts/', include('allauth.urls')),
+    path('new/', include('New_Users.urls')),
+    path('swagger/', schema_view),
+    # path('plaid/', include('Plaid.urls'))
     # path('users/', include('users.urls')),
     # path('users/', include('django.contrib.auth.urls')),
     # you CANNOT have this with the others...so i'm commenting it out as a reminder 
