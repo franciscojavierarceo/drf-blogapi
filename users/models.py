@@ -8,9 +8,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField('email address', unique=True)
     username = models.CharField(max_length=30, unique=False)
     # add additional fields in here
-    phone_number = models.CharField(max_length=30, default= None, null=True, blank=True)
-    verification_code = models.IntegerField(default=None, blank=True, null=True)
-    created_date = models.DateTimeField(default=timezone.now)
+    
 
     def __str__(self):
         return self.username

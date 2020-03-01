@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/v1/rest-auth/', include('rest_auth.urls')),
     path('api/v1/rest-auth/registration/', include('rest_auth.registration.urls')),
     path('users/', include('users.urls')),
+    path('mobile/', include('Twilio.urls')),
     path('accounts/', include('allauth.urls')),
     path('docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
     path('swagger-docs/', schema_view)
