@@ -10,6 +10,7 @@ from django.views import View
 
 from django.shortcuts import render, redirect
 from rest_framework import viewsets
+from rest_framework import generics
 from rest_framework.authtoken.models import Token
 from django.core.mail import send_mail
 from django.shortcuts import render
@@ -17,6 +18,7 @@ import twilio
 from twilio.rest import Client
 import random
 from .utils import send_twilio_message
+from .serializers import UserSerializer
 from django.contrib.auth import get_user_model
 
 User=get_user_model()
@@ -86,3 +88,11 @@ class PhoneVerificationConfirmView(View):
         else:
             form = CodeConfirmForm()
             return render(request, 'confirmation.html', {'form': form})
+
+class UserList(generics.ListCreateAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer

@@ -50,12 +50,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
+    'rest_framework_swagger',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'rest_auth',
     'rest_auth.registration',
-
     # Local apps
     'posts.apps.PostsConfig',
     'users.apps.UsersConfig',
@@ -194,10 +194,13 @@ AUTHENTICATION_BACKENDS = (
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
     'localhost:19000',
-    'localhost:19001',
-    'localhost:19002',
-#'*',
+    #'*',
 )
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login', 
+    'LOGOUT_URL': 'rest_framework:logout',
+}
+
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     # Required by allauth template tags
