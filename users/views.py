@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from rest_framework.decorators import api_view
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserSubscribeForm
 # from .forms import MobileForm, CodeConfirmForm 
 from rest_framework import status
 from rest_framework.response import Response
@@ -17,7 +17,7 @@ from django.shortcuts import render
 import twilio
 from twilio.rest import Client
 import random
-from .utils import send_twilio_message
+# from .utils import send_twilio_message
 from .serializers import UserSerializer
 from django.contrib.auth import get_user_model
 
@@ -34,6 +34,13 @@ class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
+
+
+class SubscribePageView(CreateView):
+    form_class = CustomUserSubscribeForm
+    success_url = reverse_lazy('subscribe')
+    template_name = 'subscribe.html'
+
 
 class UserList(generics.ListCreateAPIView):
     queryset = get_user_model().objects.all()

@@ -21,6 +21,7 @@ email-to = "*"
 django-rest-swagger = "==2.2.0"
 coreapi = "==2.3.3"
 pyyaml = "==5.1"
+django-crispy-forms = "*"
 
 [requires]
 python_version = "3.7"
