@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from rest_framework.decorators import api_view
-from .forms import CustomUserCreationForm
-from .forms import MobileForm, CodeConfirmForm 
+from .forms import CustomUserCreationForm, CustomUserSubscribeForm
+# from .forms import MobileForm, CodeConfirmForm 
 from rest_framework import status
 from rest_framework.response import Response
 from django.http import HttpResponse
@@ -17,7 +17,7 @@ from django.shortcuts import render
 import twilio
 from twilio.rest import Client
 import random
-from .utils import send_twilio_message
+# from .utils import send_twilio_message
 from .serializers import UserSerializer
 from django.contrib.auth import get_user_model
 
@@ -36,58 +36,11 @@ class SignUpView(CreateView):
     template_name = 'signup.html'
 
 
-class PhoneVerificationView(View):
-    template_name = 'verification.html'
-    form_class = MobileForm 
-    context = {}
+class SubscribePageView(CreateView):
+    form_class = CustomUserSubscribeForm
+    success_url = reverse_lazy('subscribe')
+    template_name = 'subscribe.html'
 
-    def get(self, request, *args, **kwargs):
-        form = self.form_class()
-        self.context.update({'form': form})
-        return render(request, self.template_name, self.context)
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.phone_number = request.POST['phone_number']
-            r1 = random.randint(99999, 1000000)
-            post.verification_code=r1
-            sms = send_twilio_message(post.phone_number, r1)
-            post.save()
-            #print('code sent to database')
-            return redirect('verification_confirm')
-        else:
-            form = MobileForm()
-        return render(request, 'verification.html', {'form': form})
-
-class PhoneVerificationConfirmView(View):
-    template_name = 'verification.html'
-    form_class = CodeConfirmForm 
-    context = {}
-
-    def get(self, request, *args, **kwargs):
-        form = self.form_class()
-        self.context.update({'form': form})
-        return render(request, self.template_name, self.context)
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.phone_number = request.POST['verification_code']
-            print(post.verification_code)
-            verified_number = User.objects.all().values('verification_code').last()
-            print(verified_number['verification_code'])
-            if str(verified_number['verification_code']) == post.verification_code:
-                return redirect('thankyou')
-            else:
-                # we should probably trigger an error here or not redirect
-                print('code entered did not match sent!')
-                return redirect('/')
-        else:
-            form = CodeConfirmForm()
-            return render(request, 'confirmation.html', {'form': form})
 
 class UserList(generics.ListCreateAPIView):
     queryset = get_user_model().objects.all()
