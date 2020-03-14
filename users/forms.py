@@ -74,23 +74,15 @@ class CustomUserSubscribeForm(forms.ModelForm):
 
     def email_has_valid_domain(self, e):
         domain = self._get_domain(e)
-        print('domain = ', domain)
         DOMAINS_NOT_ALLOWED = ['test',]
         return max([domain == d for d in DOMAINS_NOT_ALLOWED]) 
 
     def clean_username(self):
-        print('test username')
         username = self.cleaned_data["username"]
         username = get_adapter().clean_username(username, shallow=False)
-        dummy_user = get_user_model()
-
-        if dummy_user and dummy_user.objects.get(username=dummy_user):
-            raise forms.ValidationError("not unique")
-        # raise forms.ValidationError("User with same email already exist, please change your email")
         return username
 
     def clean_email(self):
-        print('test clean email')
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
         User = get_user_model()

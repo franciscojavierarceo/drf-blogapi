@@ -8,9 +8,9 @@
   <p><a href="{% url 'account_logout' %}">logout</a></p>
 {% else %}
   <p>You are not logged in</p>
-  <a href="{% url 'account_login' %}">login</a> |
-  <a href="{% url 'account_signup' %}">signup</a> |
-  <a href="{% url 'subscribe' %}">subscribe</a>
+  <a href="{% url 'account_login' %}">Signin</a> |
+  <a href="{% url 'account_signup' %}">Signup</a> |
+  <a href="{% url 'subscribe' %}">Subscribe</a>
 {% endif %}
 
 {% endblock %}
