@@ -45,6 +45,12 @@ class SetPasswordField(PasswordField):
         value = get_adapter().clean_password(value, user=self.user)
         return value
 
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email')
+
 # This is the correct version
 # Note it does NOT require a view
 class CustomUserCreationForm(forms.ModelForm):
@@ -58,7 +64,6 @@ class CustomUserCreationForm(forms.ModelForm):
         user.email = self.cleaned_data['email']
         user.username = get_username(self.cleaned_data['email'])
         user.save()
-
 
 class MyCustomUserCreationForm(forms.ModelForm):
     class Meta:
@@ -134,12 +139,6 @@ class MyCustomUserCreationForm(forms.ModelForm):
                 self.add_error('password1', e)
         return cleaned_data
 
-class CustomUserChangeForm(UserChangeForm):
-
-    class Meta:
-        model = CustomUser
-        fields = ('username', 'email')
-
 
 class CustomUserSubscribeForm(forms.ModelForm):
     class Meta:
@@ -158,6 +157,7 @@ class CustomUserSubscribeForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         instance.username = get_username(instance.email)
+        instance.set_unusable_password()
         if commit:
             instance.save()
         return instance
