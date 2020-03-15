@@ -8,7 +8,7 @@ from .views import UserDetail, UserList
 
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),  
-    path('subscribe', SubscribePageView.as_view(), name='subscribe'),  
+    path('subscribe', SubscribePageView.as_view(), name='account_subscribe'),  
     path('users/', UserList.as_view()),
     path('users/<int:pk>/', UserDetail.as_view()),
 ]
