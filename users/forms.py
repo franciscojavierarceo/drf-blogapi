@@ -96,14 +96,6 @@ class CustomUserSubscribeForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        email = cleaned_data.get("email")
-        print('test clean', cleaned_data)
-        print('test cleaned email', email)
-        dummy_user = get_user_model()
-        print(dummy_user.objects.all())
-        print(dummy_user)
-        # dummy_user.objects.filter(username=self.username)
-        # print(dummy_user.objects.get(email=dummy_user))
         return cleaned_data
     
     def __init__(self, *args, **kwargs):
@@ -119,41 +111,3 @@ class CustomUserSubscribeForm(forms.ModelForm):
                  css_class='form-inline'
             )
         )
-
-
-# class CustomUserSubscribeForm(UserCreationForm):
-#     class Meta:
-#         model = CustomUser
-#         fields = (
-#             # 'username', 
-#             'email',
-#         )
-
-#     # email = forms.EmailField(
-#     #     label='email',
-#     #     widget=forms.TextInput(
-#     #             attrs={
-#     #                 'placeholder': 'john@email.com'
-#     #                 }
-#     #         )
-#     # )
-#     # password = forms.CharField(
-#     #     label='password',
-#     #     widget=forms.PasswordInput(
-#     #         attrs={
-#     #             'placeholder': 'password'
-#     #         }
-#     #     )
-#     # )
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.helper =  FormHelper(self)
-#         self.helper.form_show_labels = False
-#         self.helper.form_method = 'POST'
-
-#     def save(self, commit=True):
-#         instance = super().save(commit=False)
-#         instance.set_unusable_password()
-#         if commit:
-#             instance.save()
-#         return instance
