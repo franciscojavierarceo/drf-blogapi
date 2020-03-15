@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from rest_framework.decorators import api_view
-from .forms import CustomUserCreationForm, CustomUserSubscribeForm
+from .forms import CustomUserCreationForm, CustomUserSubscribeForm, CustomUserCreationForm2
 # from .forms import MobileForm, CodeConfirmForm 
 from rest_framework import status
 from rest_framework.response import Response
@@ -33,7 +33,12 @@ User=get_user_model()
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
-    template_name = 'signup.html'
+    template_name = 'account/signup.html'
+
+class CustomSignUpView(CreateView):
+    form_class = CustomUserCreationForm2
+    success_url = reverse_lazy('login')
+    template_name = 'account/custom_signup.html'
 
 
 class SubscribePageView(SignupView):

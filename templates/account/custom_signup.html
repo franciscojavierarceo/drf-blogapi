@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
-{% block title %}Subscribe{% endblock %}
+{% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<h2>Subscribe</h2>
-<form action="{% url 'account_subscribe' %}" method="post">
+<h2>Sign up</h2>
+<form class="signup" method="post" action="{% url 'account_signup_custom' %}">
   {% csrf_token %}
   {{ form.as_p }}
   <!-- {{ form | crispy }} -->
-  <button type="submit">Subscribe</button>
+  <button type="submit">Sign up</button>
 </form>
 
 {% include '_footer.html' %}

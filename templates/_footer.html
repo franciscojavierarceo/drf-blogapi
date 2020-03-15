@@ -1,0 +1,11 @@
+{% block footer %}
+<div> 
+        <p>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'account_login' %}">Signin</a> |
+        <a href="{% url 'account_signup' %}">Signup</a> |
+        <a href="{% url 'account_signup_custom' %}">Signup Custom</a> |
+        <a href="{% url 'account_subscribe' %}">Subscribe</a>
+        </p>
+      </div>
+{% endblock %}

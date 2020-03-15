@@ -35,6 +35,27 @@ class CustomUserCreationForm(forms.ModelForm):
         user.email = self.cleaned_data['email']
         user.username = get_username(self.cleaned_data['email'])
         user.save()
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper =  FormHelper()
+        self.helper.form_show_labels = False
+
+
+class CustomUserCreationForm2(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'email')
+
+    def signup(self, request, user):
+        user.email = self.cleaned_data['email']
+        user.username = get_username(self.cleaned_data['email'])
+        user.save()
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper =  FormHelper()
+        self.helper.form_show_labels = False
 
 class CustomUserChangeForm(UserChangeForm):
 

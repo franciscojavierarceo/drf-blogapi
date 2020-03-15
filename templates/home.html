@@ -4,13 +4,12 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'account_logout' %}">logout</a></p>
+  Hi {{ user.username }}, you are signed in.
+  <p>Signout <a href="{% url 'account_logout' %}">here!</a></p>
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'account_login' %}">Signin</a> |
-  <a href="{% url 'account_signup' %}">Signup</a> |
-  <a href="{% url 'account_subscribe' %}">Subscribe</a>
+  <p>You are not signed in. Signin <a href="{% url 'account_login' %}">here!</a></p>
 {% endif %}
+
+{% include '_footer.html' %}
 
 {% endblock %}
