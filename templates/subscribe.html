@@ -5,7 +5,7 @@
 
 {% block content %}
 <h2>Subscribe</h2>
-<form action="{% url 'subscribe' %}" method="post">
+<form action="{% url 'account_subscribe' %}" method="post">
   {% csrf_token %}
   <!-- {{ form.as_p }} -->
   {{ form | crispy }}
