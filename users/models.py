@@ -8,7 +8,6 @@ class CustomUser(AbstractUser):
     email = models.EmailField('E-mail', unique=True)
     username = models.CharField(max_length=30, unique=True)
     # add additional fields in here
-    
 
     def __str__(self):
         return self.email

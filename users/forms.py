@@ -65,7 +65,23 @@ class CustomUserCreationForm(forms.ModelForm):
         user.username = get_username(self.cleaned_data['email'])
         user.save()
 
-class MyCustomUserCreationForm(forms.ModelForm):
+from allauth.account.forms import SignupForm 
+
+class MyCustomUserCreationForm(SignupForm):
+    def __init__(self, *args, **kwargs):
+        super(MyCustomUserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['email'].label = ''
+        self.fields['password1'].label = ''
+
+    def signup(self, request, user):
+        user.email = self.cleaned_data['email']
+        user.username = get_username(self.cleaned_data['email'])
+        user.set_password(self.cleaned_data['password1'])
+        user.save()
+
+
+# This is the old way to do it, which is terrible
+class MyCustomUserCreationFormOld(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ('email', 'password1',)
@@ -213,3 +229,28 @@ class CustomUserSubscribeForm(forms.ModelForm):
                  css_class='form-inline'
             )
         )
+
+from allauth.account.forms import LoginForm
+
+class MyCustomLoginForm(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super(MyCustomLoginForm, self).__init__(*args, **kwargs)
+        self.fields['login'].label = ''
+        self.fields['password'].label = ''
+
+from allauth.account.forms import ResetPasswordForm
+
+class MyCustomResetPasswordForm(ResetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(MyCustomResetPasswordForm, self).__init__(*args, **kwargs)
+        self.fields['email'].label = ''
+
+from allauth.account.forms import ChangePasswordForm
+
+class MyCustomChangePasswordForm(ChangePasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(MyCustomChangePasswordForm, self).__init__(*args, **kwargs)
+        print(self.fields)
+        self.fields['oldpassword'].label = ''
+        self.fields['password1'].label = ''
+        self.fields['password2'].label = ''

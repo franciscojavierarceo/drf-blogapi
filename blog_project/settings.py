@@ -178,6 +178,16 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.CustomUserCreationForm'
 # ACCOUNT_FORMS = {'signup': 'users.forms.CustomUserCreationForm'}
+ACCOUNT_FORMS = {
+    # Cant use signup form here
+    # "signup": "users.forms.CustomUserCreationForm",
+    # "signup": "users.forms.CustomUserSubscribeForm",
+    "login": "users.forms.MyCustomLoginForm",
+    "change_password": "users.forms.MyCustomChangePasswordForm",
+    # "set_password": "",
+    "reset_password": "users.forms.MyCustomResetPasswordForm",
+    # "reset_password_from_key": "",
+}
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'thankyou'
