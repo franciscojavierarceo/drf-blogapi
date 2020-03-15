@@ -86,8 +86,12 @@ class CustomUserSubscribeForm(forms.ModelForm):
         email = self.cleaned_data["email"]
         email = get_adapter().clean_email(email)
         User = get_user_model()
-        if User and User.objects.get(email=email):
-            raise forms.ValidationError(_("A user is already registered with this e-mail address."))
+        if User:
+            try:
+                if User.objects.get(email=email):
+                    raise forms.ValidationError(_("A user is already registered with this e-mail address."))
+            except Exception as e:
+                pass
 
         if self.email_has_valid_domain(email):
             raise ValidationError(_("Email is not a part of accepted domains"))

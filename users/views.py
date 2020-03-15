@@ -20,7 +20,7 @@ import random
 # from .utils import send_twilio_message
 from .serializers import UserSerializer
 from django.contrib.auth import get_user_model
-
+from allauth.account.views import SignupView
 User=get_user_model()
 
 # account_sid= key_twilio.account_sid
@@ -36,9 +36,9 @@ class SignUpView(CreateView):
     template_name = 'signup.html'
 
 
-class SubscribePageView(CreateView):
+class SubscribePageView(SignupView):
     form_class = CustomUserSubscribeForm
-    success_url = reverse_lazy('subscribe')
+    success_url = reverse_lazy('account_email_verification_sent')
     template_name = 'subscribe.html'
 
 
