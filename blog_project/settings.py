@@ -177,6 +177,8 @@ ACCOUNT_USER_MODEL_EMAIL_FIELD = "email"
 # Need to be commented out until email is working
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.CustomUserCreationForm'
+# ACCOUNT_FORMS = {'signup': 'users.forms.CustomUserCreationForm'}
+
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'thankyou'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'thankyou'

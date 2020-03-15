@@ -5,7 +5,7 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<h2>Sign up</h2>
+<h2>Allauth Sign up</h2>
 <form class="signup" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   {{ form.as_p }}
@@ -13,14 +13,7 @@
   <button type="submit">Sign up</button>
 </form>
 
-<div> 
-  <p>
-  <a href="{% url 'home' %}">Home</a> |
-  <a href="{% url 'account_login' %}">Signin</a> |
-  <a href="{% url 'account_signup' %}">Signup</a> |
-  <a href="{% url 'account_signup_custom' %}">Signup Custom</a> |
-  <a href="{% url 'account_subscribe' %}">Subscribe</a>
-  </p>
-</div>
+{% include '_footer.html' %}
+
 {% endblock %}
 

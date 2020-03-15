@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from rest_framework.decorators import api_view
-from .forms import CustomUserCreationForm, CustomUserSubscribeForm, CustomUserCreationForm2
+from .forms import CustomUserCreationForm, MyCustomUserCreationForm, CustomUserSubscribeForm
 # from .forms import MobileForm, CodeConfirmForm 
 from rest_framework import status
 from rest_framework.response import Response
@@ -30,16 +30,16 @@ User=get_user_model()
 # twil=key_twilio.twil
 
 
-class SignUpView(CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'account/signup.html'
+class SignUpView(SignupView):
+    form_class = MyCustomUserCreationForm
+    success_url = reverse_lazy('account_email_verification_sent')
+    template_name = 'signup.html'
 
-class CustomSignUpView(CreateView):
-    form_class = CustomUserCreationForm2
-    success_url = reverse_lazy('login')
-    template_name = 'account/custom_signup.html'
-
+# DO NOT USE THIS...leaving here explicitly to note that it's not useful
+#class CustomSignUpView(CreateView):
+#    form_class = CustomUserCreationForm2
+#    success_url = reverse_lazy('login')
+#    template_name = 'account/custom_signup.html'
 
 class SubscribePageView(SignupView):
     form_class = CustomUserSubscribeForm

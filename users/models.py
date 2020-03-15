@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 class CustomUser(AbstractUser):
-    email = models.EmailField('Email Address', unique=True)
+    email = models.EmailField('E-mail', unique=True)
     username = models.CharField(max_length=30, unique=True)
     # add additional fields in here
     
