@@ -6,10 +6,10 @@
 
 {% block content %}
 <h2>My Sign up</h2>
-<form class="signup" action="{% url 'signup' %}" method="post">
+<form class="signup" action="{% url 'account_signup_custom' %}" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
-  <!-- {{ form | crispy }} -->
+  <!-- {{ form.as_p }} -->
+  {{ form | crispy }}
   <button type="submit">Sign up</button>
 </form>
 

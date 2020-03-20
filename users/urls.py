@@ -8,7 +8,7 @@ from .views import UserDetail, UserList
 # router.register('tokens', TokenView)
 
 urlpatterns = [
-    path('signup/', SignUpView.as_view(), name='signup'),  
+    path('signup/', SignUpView.as_view(), name='account_signup_custom'),  
     # Do not use this
     # path('custom_signup/', CustomSignUpView.as_view(), name='account_signup_custom'),  
     path('subscribe', SubscribePageView.as_view(), name='account_subscribe'),  

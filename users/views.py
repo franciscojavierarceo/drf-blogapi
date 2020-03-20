@@ -29,7 +29,6 @@ User=get_user_model()
 # tel=key_twilio.tel
 # twil=key_twilio.twil
 
-
 class SignUpView(SignupView):
     form_class = MyCustomUserCreationForm
     success_url = reverse_lazy('account_email_verification_sent')
