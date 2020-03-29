@@ -29,6 +29,7 @@ $ docker volume rm drf-blogapi_postgres_data    # this wipes the postgres databa
 $ docker-compose run web bash build.sh          # this runs the migrations and creates the admin user
 $ docker-compose down                           # just to stop the service to relaunch
 $ docker-compose up --build
+$ docker-compose exec web python manage.py collectstatic
 ```
 
 To test the DRF registration and login endpoints go to a separate terminal and try:
