@@ -30,6 +30,7 @@ $ docker-compose run web bash build.sh          # this runs the migrations and c
 $ docker-compose down                           # just to stop the service to relaunch
 $ docker-compose up --build
 $ docker-compose exec web python manage.py collectstatic
+$ docker-compose -f docker-compose-uat.yml up --build
 ```
 
 To test the DRF registration and login endpoints go to a separate terminal and try:

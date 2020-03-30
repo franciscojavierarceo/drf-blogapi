@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 django = "==2.2.8"
-psycopg2-binary = "==2.8.3"
+psycopg2-binary = "==2.8.4"
 djangorestframework = "==3.9.2"
 django-rest-auth = "==0.9.5"
 django-allauth = "==0.38.0"
@@ -23,8 +23,8 @@ coreapi = "==2.3.3"
 pyyaml = "==5.1"
 django-crispy-forms = "*"
 django-debug-toolbar = "==1.11"
-whitenoise = "==4.1.2"
+whitenoise = {extras = ["brotli"],version = "*"}
 gunicorn = "==19.9.0"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
