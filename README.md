@@ -16,6 +16,7 @@ To generate the three .env files (.env, qa.env, uat.env) simply run:
 $ echo "ENVIRONMENT=development" > .env
 $ echo "ENVIRONMENT=quality-assurance" > qa.env
 $ echo "ENVIRONMENT=user-acceptance-testing" > uat.env
+# This is a dummy secret key and this is only meant for a local project
 $ echo "SECRET_KEY=uj123412sad@$^@)#f&&#nylxh9s2$rtgp!a4wsnyh" | tee -a .env qa.env uat.env
 $ echo "DEBUG=1" | tee -a .env qa.env 
 $ echo "DEBUG=0" >> uat.env
