@@ -1,6 +1,6 @@
 # Django Rest Framework Blog API + React Native 
 
-## DRF + Docker
+## Building the Docker Image
 
 Make sure you have Docker installed.
 
@@ -10,6 +10,7 @@ $ git clone git@github.com:franciscojavierarceo/drf-blogapi.git
 $ cd drf-blogapi
 $ docker-compose build .
 ```
+## Creating the environment variables
 
 To generate the three .env files (.env, qa.env, uat.env) simply run: 
 ```
@@ -26,30 +27,43 @@ $ echo "DB_USER=postgres" | tee -a .env qa.env uat.env
 $ echo "DB_PASSWORD=postgres" | tee -a .env qa.env uat.env
 $ echo "DB_HOST=db" | tee -a .env qa.env uat.env
 $ echo "DB_PORT=5432" | tee -a .env qa.env uat.env
-
-$ docker-compose run web bash build.sh 
-$ docker-compose down
-$ docker-compose up --build
 ```
 
-You should now be able to see the homepage on https://localhost:8000
+## Running migrations and creating the admin user
 
+To set up the username, password, and make migrations run:
+
+```
+$ docker-compose run web bash build.sh 
+$ docker-compose down
+```
 
 Note that this creates a default user with the following details:
 - username: admin
 - email: admin@djangox.com
 - password: password123
 
+## Starting up the Django server through Docker
+```
+$ docker-compose up --build
+# Alternatively you can use one of the other environments
+# by swapping the docker-compose file like so:
+$ docker-compose -f docker-compose-uat.yml up --build
+```
 
-Then to rebuild the project you have to run:
+You should now be able to see the homepage on https://localhost:8000 or http://0.0.0.0:8000 (if using the qa or uat environment)
+
+## Wiping the database and starting over
+
+To rebuild the project you have to run:
 ```
 $ docker volume rm drf-blogapi_postgres_data    # this wipes the postgres database created by docker
 $ docker-compose run web bash build.sh          # this runs the migrations and creates the admin user
 $ docker-compose down                           # just to stop the service to relaunch
 $ docker-compose up --build
 $ docker-compose exec web python manage.py collectstatic
-$ docker-compose -f docker-compose-uat.yml up --build
 ```
+## DRF
 
 To test the DRF registration and login endpoints go to a separate terminal and try:
 
